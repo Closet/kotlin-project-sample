@@ -39,7 +39,7 @@ class UserServiceTest(
     fun `CREATE_중복 회원가입 예외발생`() {
         //Arrange
         val joinAccountRequest = UserAggregateTestFactory.defaultJoinAccountRequest()
-        val result = userService.joinAccount(joinAccountRequest)
+        userService.joinAccount(joinAccountRequest)
 
         //Act && Assert
         assertThrows<DuplicatedException> {
@@ -71,9 +71,9 @@ class UserServiceTest(
     }
 
     @Test
-    fun `UPDATE_회원정보수정됨`() {
+    fun `UPDATE_회원정보 수정됨`() {
         //Arrange
-        val savedUser = userRepository.saveAndFlush(UserAggregateTestFactory.defaultUserAggregate())
+        userRepository.saveAndFlush(UserAggregateTestFactory.defaultUserAggregate())
         val updateRequest = UserAggregateTestFactory.defaultUpdateAllRequest()
         val searchRequest = UserAggregateTestFactory.defaultSuccessSearchAccountRequest()
 
