@@ -1,66 +1,110 @@
+@file:Suppress("NonAsciiCharacters")
+
 package com.example.demo.domain
 
+import com.example.demo.commons.exception.DuplicatedException
 import com.example.demo.commons.exception.NotFoundException
-import com.example.demo.dto.JoinAccountRequest
-import com.example.demo.dto.SearchAccountRequest
+import com.example.demo.configuration.ServiceWithDatabaseTest
+import com.example.demo.domain.user.UserAggregate
+import com.example.demo.domain.user.UserRepository
+import com.example.demo.dto.Account.*
 import com.example.demo.service.UserService
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.TestConstructor
-import org.springframework.test.context.TestPropertySource
-import org.springframework.transaction.annotation.Transactional
 
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-@TestPropertySource("classpath:application.test.properties")
-@Transactional
-@SpringBootTest
+@ServiceWithDatabaseTest
 class UserServiceTest(
-        val userService: UserService
+        private val userRepository: UserRepository
 ) {
+    private val userService: UserService = UserService(userRepository)
+
     @Test
-    fun `회원가입 성공`() {
-        //given
+    fun `CREATE_회원가입 성공`() {
+        //Arrange
         val joinAccountRequest = UserAggregateTestFactory.defaultJoinAccountRequest()
         val searchAccountRequest = UserAggregateTestFactory.defaultSuccessSearchAccountRequest()
-        //when
+
+        //Act
         userService.joinAccount(joinAccountRequest)
         val resultAccountResult = userService.getAccount(searchAccountRequest)
-        //then
+
+        //Assert
         Assertions.assertThat(joinAccountRequest.name).isEqualTo(resultAccountResult.name)
         Assertions.assertThat(joinAccountRequest.phone).isEqualTo(resultAccountResult.phone)
         Assertions.assertThat(joinAccountRequest.address).isEqualTo(resultAccountResult.address)
     }
 
     @Test
-    fun `중복 회원가입 예외발생`() {
+    fun `CREATE_중복 회원가입 예외발생`() {
+        //Arrange
         val joinAccountRequest = UserAggregateTestFactory.defaultJoinAccountRequest()
-        userService.joinAccount(joinAccountRequest)
-        userService.joinAccount(joinAccountRequest)
+        val result = userService.joinAccount(joinAccountRequest)
 
+        //Act && Assert
+        assertThrows<DuplicatedException> {
+            userService.joinAccount(joinAccountRequest)
+        }
     }
 
     @Test
-    fun `회원을 찾지 못함`() {
-        val joinAccountRequest = UserAggregateTestFactory.defaultJoinAccountRequest()
+    fun `READ_회원을 찾지 못함`() {
+        //Arrange
         val failureSearchRequest = UserAggregateTestFactory.defaultFailureSearchAccountRequest()
-        userService.joinAccount(joinAccountRequest)
+
+        //Act && Assert
         assertThrows<NotFoundException> {
             userService.getAccount(failureSearchRequest)
         }
+    }
+
+
+    @Test
+    fun `UPDATE_회원정보 찾지못함`() {
+        //Arrange
+        val updateAccountRequest = UserAggregateTestFactory.defaultUpdateAllRequest()
+
+        //Act && Assert
+        assertThrows<NotFoundException> {
+            userService.updateAccount(updateAccountRequest)
+        }
+    }
+
+    @Test
+    fun `UPDATE_회원정보수정됨`() {
+        //Arrange
+        val savedUser = userRepository.saveAndFlush(UserAggregateTestFactory.defaultUserAggregate())
+        val updateRequest = UserAggregateTestFactory.defaultUpdateAllRequest()
+        val searchRequest = UserAggregateTestFactory.defaultSuccessSearchAccountRequest()
+
+        //Act
+        userService.updateAccount(updateRequest)
+        userRepository.flush()
+
+        //Assert
+        val result = userService.getAccount(searchRequest)
+        Assertions.assertThat(result.address).isEqualTo(updateRequest.address)
+        Assertions.assertThat(result.phone).isEqualTo(updateRequest.phone)
+
     }
 }
 
 internal class UserAggregateTestFactory {
     companion object {
+
         fun defaultJoinAccountRequest() =
-                JoinAccountRequest("이필수", "수원시영통구", "01021321231")
+                CreateAccountRequest("이필수", "수원시영통구", "01021321231")
+
+        fun defaultUpdateAllRequest() =
+                UpdateAccountRequest(id = "1234", address = "수원시장안구", phone = "01000203455")
+
+        fun defaultUserAggregate() =
+                UserAggregate(id = "1234", name = "이필수", address = "수원시영통구", phone = "01000000000")
 
         fun defaultSuccessSearchAccountRequest() =
-                SearchAccountRequest("이필수", "01021321231")
+                ReadAccountRequest("이필수", "01021321231")
 
         fun defaultFailureSearchAccountRequest() =
-                SearchAccountRequest("김기기", "01022321231")
+                ReadAccountRequest("김기기", "01022321231")
     }
 }
