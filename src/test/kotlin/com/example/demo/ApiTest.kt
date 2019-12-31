@@ -1,5 +1,6 @@
 package com.example.demo
 
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
@@ -10,6 +11,7 @@ import java.util.concurrent.TimeUnit
 import java.util.stream.IntStream
 
 @WebFluxTest
+@Disabled
 class ApiTest() {
     @Autowired
     private lateinit var webTestClient: WebTestClient
