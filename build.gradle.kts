@@ -25,7 +25,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.mariadb.jdbc", "mariadb-java-client", "2.5.1")
+    implementation("org.mariadb.jdbc", "mariadb-java-client", "2.5.2")
     testImplementation("com.h2database:h2")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
