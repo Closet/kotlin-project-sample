@@ -3,10 +3,12 @@ package com.example.demo.api
 import com.example.demo.dto.JoinAccountRequest
 import com.example.demo.service.NotificationService
 import com.example.demo.service.UserService
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToMono
-import java.util.*
 
 @RestController
 class Controller(
