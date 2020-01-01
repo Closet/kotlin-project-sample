@@ -1,13 +1,11 @@
 @file:Suppress("NonAsciiCharacters")
 
-package com.example.demo.domain
+package com.example.demo.domain.user
 
 import com.example.demo.commons.exception.DuplicatedException
 import com.example.demo.commons.exception.NotFoundException
 import com.example.demo.configuration.ServiceWithDatabaseTest
-import com.example.demo.domain.user.UserAggregate
-import com.example.demo.domain.user.UserRepository
-import com.example.demo.dto.Account.*
+import com.example.demo.commons.dto.Account.*
 import com.example.demo.service.UserService
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
@@ -33,6 +31,8 @@ class UserServiceTest(
         Assertions.assertThat(joinAccountRequest.name).isEqualTo(resultAccountResult.name)
         Assertions.assertThat(joinAccountRequest.phone).isEqualTo(resultAccountResult.phone)
         Assertions.assertThat(joinAccountRequest.address).isEqualTo(resultAccountResult.address)
+        Assertions.assertThat(resultAccountResult.created).isNotNull()
+        Assertions.assertThat(resultAccountResult.updated).isNotNull()
     }
 
     @Test
@@ -73,9 +73,11 @@ class UserServiceTest(
     @Test
     fun `UPDATE_회원정보 수정됨`() {
         //Arrange
-        userRepository.saveAndFlush(UserAggregateTestFactory.defaultUserAggregate())
+        val originData = userRepository.saveAndFlush(UserAggregateTestFactory.defaultUserAggregate())
         val updateRequest = UserAggregateTestFactory.defaultUpdateAllRequest()
         val searchRequest = UserAggregateTestFactory.defaultSuccessSearchAccountRequest()
+        val originUpdatedTime = originData.updated
+        val originCreatedTime = originData.created
 
         //Act
         userService.updateAccount(updateRequest)
@@ -85,11 +87,13 @@ class UserServiceTest(
         val result = userService.readAccount(searchRequest)
         Assertions.assertThat(result.address).isEqualTo(updateRequest.address)
         Assertions.assertThat(result.phone).isEqualTo(updateRequest.phone)
+        Assertions.assertThat(originCreatedTime).isEqualTo(result.created)
+        Assertions.assertThat(originUpdatedTime).isBefore(result.updated)
 
     }
 }
 
-internal class UserAggregateTestFactory {
+private class UserAggregateTestFactory {
     companion object {
 
         fun defaultJoinAccountRequest() =

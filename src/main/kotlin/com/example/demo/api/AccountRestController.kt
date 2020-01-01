@@ -1,6 +1,6 @@
 package com.example.demo.api
 
-import com.example.demo.dto.Account.CreateAccountRequest
+import com.example.demo.commons.dto.Account.CreateAccountRequest
 import com.example.demo.service.NotificationService
 import com.example.demo.service.UserService
 import org.springframework.http.HttpStatus
