@@ -14,9 +14,10 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class UserService(
         val userRepository: UserRepository
+        //todo 이벤트 발행 구현해야함
         //val applicationEventPublisher: ApplicationEventPublisher
 ) {
-    fun joinAccount(createAccountRequest: CreateAccountRequest) {
+    fun createAccount(createAccountRequest: CreateAccountRequest) {
         try {
             userRepository.saveAndFlush(UserAggregate.fromDto(createAccountRequest));
         } catch (exception: DataIntegrityViolationException) {
@@ -24,7 +25,7 @@ class UserService(
         }
     }
 
-    fun getAccount(readAccountRequest: ReadAccountRequest): Account {
+    fun readAccount(readAccountRequest: ReadAccountRequest): Account {
         return userRepository.findByName(
                 readAccountRequest.name
         ).orElseThrow {
