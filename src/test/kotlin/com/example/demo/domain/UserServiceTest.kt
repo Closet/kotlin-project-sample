@@ -26,8 +26,8 @@ class UserServiceTest(
         val searchAccountRequest = UserAggregateTestFactory.defaultSuccessSearchAccountRequest()
 
         //Act
-        userService.joinAccount(joinAccountRequest)
-        val resultAccountResult = userService.getAccount(searchAccountRequest)
+        userService.createAccount(joinAccountRequest)
+        val resultAccountResult = userService.readAccount(searchAccountRequest)
 
         //Assert
         Assertions.assertThat(joinAccountRequest.name).isEqualTo(resultAccountResult.name)
@@ -39,11 +39,11 @@ class UserServiceTest(
     fun `CREATE_중복 회원가입 예외발생`() {
         //Arrange
         val joinAccountRequest = UserAggregateTestFactory.defaultJoinAccountRequest()
-        userService.joinAccount(joinAccountRequest)
+        userService.createAccount(joinAccountRequest)
 
         //Act && Assert
         assertThrows<DuplicatedException> {
-            userService.joinAccount(joinAccountRequest)
+            userService.createAccount(joinAccountRequest)
         }
     }
 
@@ -54,7 +54,7 @@ class UserServiceTest(
 
         //Act && Assert
         assertThrows<NotFoundException> {
-            userService.getAccount(failureSearchRequest)
+            userService.readAccount(failureSearchRequest)
         }
     }
 
@@ -82,7 +82,7 @@ class UserServiceTest(
         userRepository.flush()
 
         //Assert
-        val result = userService.getAccount(searchRequest)
+        val result = userService.readAccount(searchRequest)
         Assertions.assertThat(result.address).isEqualTo(updateRequest.address)
         Assertions.assertThat(result.phone).isEqualTo(updateRequest.phone)
 
