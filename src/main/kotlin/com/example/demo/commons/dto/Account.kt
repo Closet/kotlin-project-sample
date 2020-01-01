@@ -1,12 +1,15 @@
-package com.example.demo.dto
+package com.example.demo.commons.dto
 
 import com.example.demo.domain.user.UserAggregate
+import java.time.LocalDateTime
 
 class Account(
         val id: String,
         val name: String,
         val phone: String,
-        val address: String
+        val address: String,
+        val created: LocalDateTime?,
+        val updated: LocalDateTime?
 ) {
     companion object {
         fun fromUserAggregate(userAggregate: UserAggregate) =
@@ -14,7 +17,9 @@ class Account(
                         id = userAggregate.id,
                         address = userAggregate.address,
                         name = userAggregate.name,
-                        phone = userAggregate.phone
+                        phone = userAggregate.phone,
+                        created = userAggregate.created,
+                        updated = userAggregate.updated
                 )
     }
 
