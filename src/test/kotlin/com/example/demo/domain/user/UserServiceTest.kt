@@ -6,6 +6,7 @@ import com.example.demo.commons.exception.DuplicatedException
 import com.example.demo.commons.exception.NotFoundException
 import com.example.demo.configuration.ServiceWithDatabaseTest
 import com.example.demo.commons.dto.Account.*
+import com.example.demo.commons.vo.MobileNumber
 import com.example.demo.service.UserService
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
@@ -97,18 +98,18 @@ private class UserAggregateTestFactory {
     companion object {
 
         fun defaultJoinAccountRequest() =
-                CreateAccountRequest("이필수", "수원시영통구", "01021321231")
+                CreateAccountRequest("이필수", "수원시영통구", MobileNumber.ofNumber("01021321231"))
 
         fun defaultUpdateAllRequest() =
-                UpdateAccountRequest(id = "1234", address = "수원시장안구", phone = "01000203455")
+                UpdateAccountRequest(id = "1234", address = "수원시장안구", phone = MobileNumber.ofNumber("01000203455"))
 
         fun defaultUserAggregate() =
                 UserAggregate(id = "1234", name = "이필수", address = "수원시영통구", phone = "01000000000")
 
         fun defaultSuccessSearchAccountRequest() =
-                ReadAccountRequest("이필수", "01021321231")
+                ReadAccountRequest("이필수", MobileNumber.ofNumber("01021321231"))
 
         fun defaultFailureSearchAccountRequest() =
-                ReadAccountRequest("김기기", "01022321231")
+                ReadAccountRequest("김기기", MobileNumber.ofNumber("01022321231"))
     }
 }
