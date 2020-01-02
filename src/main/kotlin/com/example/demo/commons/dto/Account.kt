@@ -4,7 +4,7 @@ import com.example.demo.commons.vo.MobileNumber
 import com.example.demo.domain.user.UserAggregate
 import java.time.LocalDateTime
 
-class Account(
+class Account private constructor(
         val id: String,
         val name: String,
         val phone: MobileNumber,
@@ -25,19 +25,19 @@ class Account(
     }
 
 
-    data class CreateAccountRequest(
+    class CreateAccountRequest constructor(
             val name: String,
             val address: String,
             val phone: MobileNumber
     )
 
-    data class UpdateAccountRequest(
+    class UpdateAccountRequest constructor(
             val id: String,
             val address: String? = null,
             val phone: MobileNumber? = null
     )
 
-    data class ReadAccountRequest(
+    class ReadAccountRequest constructor(
             val name: String,
             val phone: MobileNumber
     )
