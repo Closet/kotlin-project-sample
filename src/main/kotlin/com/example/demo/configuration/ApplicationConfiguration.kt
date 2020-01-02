@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 
 @Configuration
 @EnableJpaAuditing
-@PropertySource(value = ["classpath:application.dv.properties"])
 class ApplicationConfiguration
