@@ -25,17 +25,17 @@ data class UserAggregate(
     companion object {
         fun fromDto(accountRequest: CreateAccountRequest) = UserAggregate(
                 name = accountRequest.name,
-                phone = accountRequest.phone,
+                phone = accountRequest.phone.toString(),
                 address = accountRequest.address
         )
     }
 
     fun update(updateAccountRequest: Account.UpdateAccountRequest) {
         updateAccountRequest.phone?.let {
-            this.phone = it
+            this.phone = it.toString()
         }
         updateAccountRequest.address?.let {
-            this.address = it
+            this.address = it.toString()
         }
     }
 }
