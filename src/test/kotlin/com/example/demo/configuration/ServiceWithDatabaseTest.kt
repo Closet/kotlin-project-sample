@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional
 
 
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-@TestPropertySource("classpath:application.test.properties")
+//@TestPropertySource("classpath:application-test.properties")
 @Transactional
 @SpringBootTest
 annotation class ServiceWithDatabaseTest
