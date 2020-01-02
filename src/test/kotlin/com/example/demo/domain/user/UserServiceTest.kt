@@ -2,11 +2,11 @@
 
 package com.example.demo.domain.user
 
+import com.example.demo.commons.dto.Account.*
 import com.example.demo.commons.exception.DuplicatedException
 import com.example.demo.commons.exception.NotFoundException
-import com.example.demo.configuration.ServiceWithDatabaseTest
-import com.example.demo.commons.dto.Account.*
 import com.example.demo.commons.vo.MobileNumber
+import com.example.demo.configuration.ServiceWithDatabaseTest
 import com.example.demo.service.UserService
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
@@ -59,6 +59,23 @@ class UserServiceTest(
         }
     }
 
+    @Test
+    fun `READ_회원을 찾음`() {
+        //Arrange
+        val originData = userRepository.saveAndFlush(UserAggregateTestFactory.defaultUserAggregate())
+        val successSearchRequest = UserAggregateTestFactory.defaultSuccessSearchAccountRequest()
+
+        //Act
+        val result = userService.readAccount(successSearchRequest)
+
+        //Assert
+        Assertions.assertThat(result.name).isEqualTo(originData.name)
+        Assertions.assertThat(result.address).isEqualTo(originData.address)
+        Assertions.assertThat(result.phone.toString()).isEqualTo(originData.phone)
+        Assertions.assertThat(result.created).isEqualTo(originData.created)
+
+
+    }
 
     @Test
     fun `UPDATE_회원정보 찾지못함`() {
@@ -75,7 +92,11 @@ class UserServiceTest(
     fun `UPDATE_회원정보 수정됨`() {
         //Arrange
         val originData = userRepository.saveAndFlush(UserAggregateTestFactory.defaultUserAggregate())
-        val updateRequest = UserAggregateTestFactory.defaultUpdateAllRequest()
+        val updateRequest =
+                UpdateAccountRequest(
+                        id = originData.id,
+                        address = "수원시장안구",
+                        phone = MobileNumber.ofNumber("01000203455"))
         val searchRequest = UserAggregateTestFactory.defaultSuccessSearchAccountRequest()
         val originUpdatedTime = originData.updated
         val originCreatedTime = originData.created
@@ -103,8 +124,7 @@ private class UserAggregateTestFactory {
         fun defaultUpdateAllRequest() =
                 UpdateAccountRequest(id = "1234", address = "수원시장안구", phone = MobileNumber.ofNumber("01000203455"))
 
-        fun defaultUserAggregate() =
-                UserAggregate(id = "1234", name = "이필수", address = "수원시영통구", phone = "01000000000")
+        fun defaultUserAggregate() = UserAggregate.byRequest(defaultJoinAccountRequest())
 
         fun defaultSuccessSearchAccountRequest() =
                 ReadAccountRequest("이필수", MobileNumber.ofNumber("01021321231"))

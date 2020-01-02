@@ -11,7 +11,7 @@ import javax.persistence.Table
 
 @Entity
 @Table
-data class UserAggregate(
+class UserAggregate(
         @Id val id: String =
                 UUID.randomUUID().toString().replace("-", ""),
 
@@ -22,8 +22,9 @@ data class UserAggregate(
 
         var address: String = ""
 ) : DateMetaMappedSuperClass() {
+
     companion object {
-        fun fromDto(accountRequest: CreateAccountRequest) = UserAggregate(
+        fun byRequest(accountRequest: CreateAccountRequest) = UserAggregate(
                 name = accountRequest.name,
                 phone = accountRequest.phone.toString(),
                 address = accountRequest.address
@@ -35,7 +36,7 @@ data class UserAggregate(
             this.phone = it.toString()
         }
         updateAccountRequest.address?.let {
-            this.address = it.toString()
+            this.address = it
         }
     }
 }
