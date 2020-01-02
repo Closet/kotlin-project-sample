@@ -5,9 +5,10 @@ import com.fasterxml.jackson.annotation.JsonValue
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ResponseStatus
 
-data class MobileNumber(
+class MobileNumber private constructor(
         private val value: String
 ) {
+
     companion object {
         @JsonCreator
         fun ofNumber(value: String): MobileNumber {
@@ -28,6 +29,13 @@ data class MobileNumber(
     @JsonValue
     override fun toString(): String {
         return value
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return other?.run {
+            other is MobileNumber
+                    && (value == (this as MobileNumber).value)
+        } ?: false
     }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
