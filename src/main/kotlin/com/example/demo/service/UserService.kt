@@ -1,11 +1,11 @@
 package com.example.demo.service
 
+import com.example.demo.commons.dto.Account
+import com.example.demo.commons.dto.Account.*
 import com.example.demo.commons.exception.DuplicatedException
 import com.example.demo.commons.exception.NotFoundException
 import com.example.demo.domain.user.UserAggregate
 import com.example.demo.domain.user.UserRepository
-import com.example.demo.commons.dto.Account
-import com.example.demo.commons.dto.Account.*
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -13,13 +13,13 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class UserService(
-        val userRepository: UserRepository
+        private val userRepository: UserRepository
         //todo 이벤트 발행 구현해야함
         //val applicationEventPublisher: ApplicationEventPublisher
 ) {
     fun createAccount(createAccountRequest: CreateAccountRequest) {
         try {
-            userRepository.saveAndFlush(UserAggregate.fromDto(createAccountRequest));
+            userRepository.saveAndFlush(UserAggregate.byRequest(createAccountRequest))
         } catch (exception: DataIntegrityViolationException) {
             throw DuplicatedException("이미 가입된 회원입니다.", exception)
         }

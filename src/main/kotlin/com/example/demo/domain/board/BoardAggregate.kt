@@ -7,7 +7,7 @@ import javax.persistence.Entity
 import javax.persistence.Id
 
 @Entity
-data class BoardAggregate(
+class BoardAggregate private constructor(
         @Id val id: String = UUID.randomUUID().toString(),
         var title: String,
 
