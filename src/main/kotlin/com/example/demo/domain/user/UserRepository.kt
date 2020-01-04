@@ -7,7 +7,6 @@ import java.util.*
 
 @Repository
 interface UserRepository : JpaRepository<UserAggregate, String> {
-    fun findByPhoneAndName(phone: String, name: String):Optional<UserAggregate>
     fun findByName(name: String):Optional<UserAggregate>
 
 }

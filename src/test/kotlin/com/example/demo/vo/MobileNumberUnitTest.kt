@@ -4,15 +4,16 @@ package com.example.demo.vo
 
 import com.example.demo.commons.vo.MobileNumber
 import org.assertj.core.api.Assertions
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
-
+@Disabled
 class MobileNumberUnitTest {
     @Test
     fun `정상적인 폰 번호 입력 성공`() {
-        val mobileNumber = MobileNumber.ofNumber("01000000001")
+        val mobileNumber = MobileNumber("01000000001")
         Assertions.assertThat(mobileNumber.toString()).isEqualTo("01000000001")
     }
 
@@ -31,7 +32,7 @@ class MobileNumberUnitTest {
     ])
     fun `비정상적인 폰 번호 입력`(mobileNumberString: String) {
         Assertions.assertThatThrownBy {
-            MobileNumber.ofNumber(mobileNumberString)
+            MobileNumber(mobileNumberString)
         }.`as`("${mobileNumberString}번호 테스트").isInstanceOf(MobileNumber.NumberIsNotInvalidException::class.java)
                 .hasMessage("전화번호가 올바르지 않습니다.")
     }

@@ -4,8 +4,10 @@ package com.example.demo.domain.board
 
 import com.example.demo.commons.dto.Board
 import org.assertj.core.api.Assertions
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
+@Disabled
 class BoardAggregateUnitTest(
 ) {
     @Test
