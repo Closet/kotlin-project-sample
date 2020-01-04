@@ -4,12 +4,10 @@ package com.example.demo.vo
 
 import com.example.demo.commons.vo.MobileNumber
 import org.assertj.core.api.Assertions
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
-@Disabled
 class MobileNumberUnitTest {
     @Test
     fun `정상적인 폰 번호 입력 성공`() {
@@ -34,6 +32,6 @@ class MobileNumberUnitTest {
         Assertions.assertThatThrownBy {
             MobileNumber(mobileNumberString)
         }.`as`("${mobileNumberString}번호 테스트").isInstanceOf(MobileNumber.NumberIsNotInvalidException::class.java)
-                .hasMessage("전화번호가 올바르지 않습니다.")
+                .hasMessage("invalid mobile phone number")
     }
 }
