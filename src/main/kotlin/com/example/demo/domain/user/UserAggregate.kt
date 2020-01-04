@@ -17,7 +17,6 @@ class UserAggregate(
 
         var name: String,
 
-        //todo String을 mobileNumber 객체로 변경해야할 필요가 있음
         @Column(unique = true)
         var phone: MobileNumber,
 
