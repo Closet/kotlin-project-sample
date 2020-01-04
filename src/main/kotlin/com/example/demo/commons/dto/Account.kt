@@ -4,7 +4,7 @@ import com.example.demo.commons.vo.MobileNumber
 import com.example.demo.domain.user.UserAggregate
 import java.time.LocalDateTime
 
-class Account private constructor(
+class Account(
         val id: String,
         val name: String,
         val phone: MobileNumber,
@@ -18,7 +18,7 @@ class Account private constructor(
                         id = userAggregate.id,
                         address = userAggregate.address,
                         name = userAggregate.name,
-                        phone = MobileNumber.ofNumber(userAggregate.phone),
+                        phone = userAggregate.phone,
                         created = userAggregate.created,
                         updated = userAggregate.updated
                 )
@@ -29,7 +29,17 @@ class Account private constructor(
             val name: String,
             val address: String,
             val phone: MobileNumber
-    )
+    ) {
+        fun toUserAggregate(): UserAggregate {
+            return UserAggregate(
+                    name = name,
+                    phone = phone,
+                    address = address
+            )
+
+        }
+
+    }
 
     class UpdateAccountRequest constructor(
             val id: String,

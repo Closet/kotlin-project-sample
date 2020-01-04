@@ -5,9 +5,11 @@ import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
+import javax.persistence.Table
 
 @Entity
-class BoardAggregate private constructor(
+@Table
+class BoardAggregate(
         @Id val id: String = UUID.randomUUID().toString(),
         var title: String,
 

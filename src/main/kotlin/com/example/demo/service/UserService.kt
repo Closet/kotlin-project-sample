@@ -4,7 +4,6 @@ import com.example.demo.commons.dto.Account
 import com.example.demo.commons.dto.Account.*
 import com.example.demo.commons.exception.DuplicatedException
 import com.example.demo.commons.exception.NotFoundException
-import com.example.demo.domain.user.UserAggregate
 import com.example.demo.domain.user.UserRepository
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
@@ -19,7 +18,7 @@ class UserService(
 ) {
     fun createAccount(createAccountRequest: CreateAccountRequest) {
         try {
-            userRepository.saveAndFlush(UserAggregate.byRequest(createAccountRequest))
+            userRepository.saveAndFlush(createAccountRequest.toUserAggregate())
         } catch (exception: DataIntegrityViolationException) {
             throw DuplicatedException("이미 가입된 회원입니다.", exception)
         }
