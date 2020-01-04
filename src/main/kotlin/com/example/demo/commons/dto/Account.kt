@@ -25,7 +25,7 @@ class Account(
     }
 
 
-    class CreateAccountRequest constructor(
+    class CreateAccountRequest(
             val name: String,
             val address: String,
             val phone: MobileNumber
@@ -41,13 +41,13 @@ class Account(
 
     }
 
-    class UpdateAccountRequest constructor(
+    class UpdateAccountRequest(
             val id: String,
             val address: String? = null,
             val phone: MobileNumber? = null
     )
 
-    class ReadAccountRequest constructor(
+    class ReadAccountRequest(
             val name: String,
             val phone: MobileNumber
     )

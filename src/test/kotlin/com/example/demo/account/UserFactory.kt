@@ -1,4 +1,4 @@
-package com.example.demo.testcase
+package com.example.demo.account
 
 import com.example.demo.commons.dto.Account
 import com.example.demo.commons.vo.MobileNumber
@@ -15,6 +15,13 @@ class UserFactory {
         fun testCaseForReadAccountRequest() =
                 Account.ReadAccountRequest(
                         "테스트",
+                        MobileNumber("010-0000-0000")
+                )
+
+        fun testCaseForChangeAccountRequest() =
+                Account.UpdateAccountRequest(
+                        "uuid",
+                        "강남구",
                         MobileNumber("010-0000-0000")
                 )
     }

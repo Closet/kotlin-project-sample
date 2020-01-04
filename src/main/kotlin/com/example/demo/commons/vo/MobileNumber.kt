@@ -17,7 +17,7 @@ class MobileNumber(private var value: String) : Serializable {
         private fun validateNumberCheck(value: String) {
             if (value.length == 10 || value.length == 11) {
                 val regex = """^(01[016789]{1})([0-9]{3,4})([0-9]{4})$""".toRegex()
-                regex.matchEntire(value) ?: throw NumberIsNotInvalidException("전화번호가 올바르지 않습니다.")
+                regex.matchEntire(value) ?: throw NumberIsNotInvalidException("invalid mobile phone number")
             } else {
                 throw NumberIsNotInvalidException("invalid mobile phone number")
             }
@@ -30,8 +30,7 @@ class MobileNumber(private var value: String) : Serializable {
 
     override fun equals(other: Any?): Boolean {
         return other?.run {
-            value == other || other is MobileNumber
-                    && (value == (this as MobileNumber).value)
+            value == other
         } ?: false
     }
 

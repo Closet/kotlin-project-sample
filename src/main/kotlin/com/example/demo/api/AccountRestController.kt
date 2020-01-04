@@ -19,15 +19,14 @@ class AccountRestController(
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
     }
 
-
     @GetMapping("/user")
     fun postUser(readAccountRequest: Account.ReadAccountRequest): Account {
         return userService.readAccount(readAccountRequest)
     }
 
     @PatchMapping("/user")
-    fun patchUser(@RequestBody accountRequest: CreateAccountRequest): ResponseEntity<Void> {
-        userService.createAccount(accountRequest)
+    fun patchUser(@RequestBody accountRequest: Account.UpdateAccountRequest): ResponseEntity<Void> {
+        userService.updateAccount(accountRequest)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
     }
 }
