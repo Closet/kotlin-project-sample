@@ -1,4 +1,4 @@
-package com.example.demo.configuration
+package com.example.demo.account.configuration
 
 import com.example.demo.DemoApplication
 import org.junit.jupiter.api.extension.ExtendWith
@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTypeExclu
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit.jupiter.SpringExtension
-import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(SpringExtension::class)
@@ -23,5 +22,4 @@ import org.springframework.transaction.annotation.Transactional
 @AutoConfigureWebFlux
 @AutoConfigureWebTestClient
 @ImportAutoConfiguration
-@Transactional
 annotation class CustomUnitTest

@@ -1,7 +1,7 @@
 package com.example.demo.account
 
+import com.example.demo.account.configuration.CustomUnitTest
 import com.example.demo.commons.vo.MobileNumber
-import com.example.demo.configuration.CustomUnitTest
 import com.example.demo.domain.account.dto.Account
 import org.hamcrest.CoreMatchers.containsString
 import org.junit.jupiter.api.Test
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.reactive.server.returnResult
-import org.springframework.web.reactive.function.BodyInserters
 import java.util.*
 
 @CustomUnitTest

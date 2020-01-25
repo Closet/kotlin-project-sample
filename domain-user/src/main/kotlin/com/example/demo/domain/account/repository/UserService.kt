@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-public class UserService(
+class UserService(
         private val userRepository: UserRepository
         //todo 이벤트 발행 구현해야함
         //val applicationEventPublisher: ApplicationEventPublisher

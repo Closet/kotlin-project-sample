@@ -1,4 +1,4 @@
-package com.example.demo.domain.account.configuration
+package com.example.demo.commons.configuration
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing

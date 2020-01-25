@@ -1,6 +1,6 @@
 package com.example.demo.domain.board.dto
 
-class Board() : DateMetaMappedSuperClass() {
+class Board(){
     data class BoardCreateRequest(
             val issuerId: String,
             val title: String,

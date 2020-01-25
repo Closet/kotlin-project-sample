@@ -1,5 +1,5 @@
-package com.example.demo.configuration
-
+package com.example.demo.account.configuration
+/*
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.TestConstructor
 import org.springframework.transaction.annotation.Transactional
@@ -7,5 +7,5 @@ import org.springframework.transaction.annotation.Transactional
 
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @Transactional
-@SpringBootTest
+@SpringBootTest*/
 annotation class ServiceWithDatabaseTest

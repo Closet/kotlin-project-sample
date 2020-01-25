@@ -12,7 +12,7 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity
-@Table
+@Table(name = "user")
 class UserAggregate(
         @Id val id: String =
                 UUID.randomUUID().toString().replace("-", ""),
@@ -28,7 +28,7 @@ class UserAggregate(
 
         @UpdateTimestamp
         val updated: LocalDateTime? = null
-){
+) {
     fun update(updateAccountRequest: Account.UpdateAccountRequest) {
         updateAccountRequest.phone?.let {
             this.phone = it
