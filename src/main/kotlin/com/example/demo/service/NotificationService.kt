@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class NotificationService(
-        val logHistoryRepository: LogHistoryRepository
+    val logHistoryRepository: LogHistoryRepository
 ) {
     companion object {
         private val log = LoggerFactory.getLogger(this::class.java)

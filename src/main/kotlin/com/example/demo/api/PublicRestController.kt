@@ -16,5 +16,5 @@ class PublicRestController {
 
     @GetMapping("/test")
     fun test() = WebClient.create()
-            .get().uri("https://www.naver.com/").retrieve().bodyToMono<String>().log()
+        .get().uri("https://www.naver.com/").retrieve().bodyToMono<String>().log()
 }

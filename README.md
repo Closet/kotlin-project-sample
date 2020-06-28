@@ -70,4 +70,4 @@
     
     `application.dv.properties를 맞게 수정해야 정상 작동 할 수 있습니다.`
     
-    
+    "# jms_listener" 

@@ -36,8 +36,8 @@ class MobileNumber(private var value: String) : Serializable {
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     class NumberIsNotInvalidException
-    (
-            override val message: String?,
-            override val cause: Throwable? = null
+        (
+        override val message: String?,
+        override val cause: Throwable? = null
     ) : RuntimeException(message, cause)
 }

@@ -5,36 +5,36 @@ import com.example.demo.domain.user.UserAggregate
 import java.time.LocalDateTime
 
 class Account(
-        val id: String,
-        val name: String,
-        val phone: MobileNumber,
-        val address: String,
-        val created: LocalDateTime?,
-        val updated: LocalDateTime?
+    val id: String,
+    val name: String,
+    val phone: MobileNumber,
+    val address: String,
+    val created: LocalDateTime?,
+    val updated: LocalDateTime?
 ) {
     companion object {
         fun fromUserAggregate(userAggregate: UserAggregate) =
-                Account(
-                        id = userAggregate.id,
-                        address = userAggregate.address,
-                        name = userAggregate.name,
-                        phone = userAggregate.phone,
-                        created = userAggregate.created,
-                        updated = userAggregate.updated
-                )
+            Account(
+                id = userAggregate.id,
+                address = userAggregate.address,
+                name = userAggregate.name,
+                phone = userAggregate.phone,
+                created = userAggregate.created,
+                updated = userAggregate.updated
+            )
     }
 
 
     class CreateAccountRequest(
-            val name: String,
-            val address: String,
-            val phone: MobileNumber
+        val name: String,
+        val address: String,
+        val phone: MobileNumber
     ) {
         fun toUserAggregate(): UserAggregate {
             return UserAggregate(
-                    name = name,
-                    phone = phone,
-                    address = address
+                name = name,
+                phone = phone,
+                address = address
             )
 
         }
@@ -42,13 +42,13 @@ class Account(
     }
 
     class UpdateAccountRequest(
-            val id: String,
-            val address: String? = null,
-            val phone: MobileNumber? = null
+        val id: String,
+        val address: String? = null,
+        val phone: MobileNumber? = null
     )
 
     class ReadAccountRequest(
-            val name: String,
-            val phone: MobileNumber
+        val name: String,
+        val phone: MobileNumber
     )
 }

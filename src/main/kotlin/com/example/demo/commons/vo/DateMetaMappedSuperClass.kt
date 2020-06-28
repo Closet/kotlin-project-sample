@@ -10,9 +10,9 @@ import javax.persistence.MappedSuperclass
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
 abstract class DateMetaMappedSuperClass(
-        @CreationTimestamp
-        var created: LocalDateTime? = null,
+    @CreationTimestamp
+    var created: LocalDateTime? = null,
 
-        @UpdateTimestamp
-        var updated: LocalDateTime? = null
+    @UpdateTimestamp
+    var updated: LocalDateTime? = null
 )

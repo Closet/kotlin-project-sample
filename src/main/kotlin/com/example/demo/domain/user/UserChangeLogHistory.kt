@@ -7,9 +7,9 @@ import javax.persistence.Id
 
 @Entity
 data class UserChangeLogHistory(
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val Id: Int? = null,
-        val content: String = "",
-        val userCommandType: UserCommandType
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val Id: Int? = null,
+    val content: String = "",
+    val userCommandType: UserCommandType
 ) {
 }

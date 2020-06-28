@@ -12,9 +12,9 @@ fun Any.changeProperties(to: MutableList<Pair<String, Any>>): Any {
 
 fun Any.changeProperty(to: Pair<String, Any>): Any {
     this::class.java.getDeclaredField(to.first)
-            .apply {
-                isAccessible = true
-                set(this, to.second)
-            }
+        .apply {
+            isAccessible = true
+            set(this, to.second)
+        }
     return this
 }

@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class UserService(
-        private val userRepository: UserRepository
-        //todo 이벤트 발행 구현해야함
-        //val applicationEventPublisher: ApplicationEventPublisher
+    private val userRepository: UserRepository
+    //todo 이벤트 발행 구현해야함
+    //val applicationEventPublisher: ApplicationEventPublisher
 ) {
     fun createAccount(createAccountRequest: CreateAccountRequest) {
         try {
@@ -26,7 +26,7 @@ class UserService(
 
     fun readAccount(readAccountRequest: ReadAccountRequest): Account {
         return userRepository.findByName(
-                readAccountRequest.name
+            readAccountRequest.name
         ).orElseThrow {
             throw NotFoundException("계정 정보를 찾지 못했습니다.")
         }.run {

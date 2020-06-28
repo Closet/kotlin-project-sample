@@ -12,15 +12,15 @@ import javax.persistence.Table
 @Entity
 @Table
 class UserAggregate(
-        @Id val id: String =
-                UUID.randomUUID().toString().replace("-", ""),
+    @Id val id: String =
+        UUID.randomUUID().toString().replace("-", ""),
 
-        var name: String,
+    var name: String,
 
-        @Column(unique = true)
-        var phone: MobileNumber,
+    @Column(unique = true)
+    var phone: MobileNumber,
 
-        var address: String
+    var address: String
 ) : DateMetaMappedSuperClass() {
     fun update(updateAccountRequest: Account.UpdateAccountRequest) {
         updateAccountRequest.phone?.let {

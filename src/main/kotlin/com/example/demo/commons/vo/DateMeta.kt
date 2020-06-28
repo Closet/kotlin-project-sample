@@ -17,13 +17,13 @@ import javax.persistence.*
 @EntityListeners(AuditingEntityListener::class)
 @Embeddable
 open class DateMeta(
-        @CreationTimestamp
-        @Column(insertable = false, updatable = false, nullable = false)
-        var created: Date? = null,
+    @CreationTimestamp
+    @Column(insertable = false, updatable = false, nullable = false)
+    var created: Date? = null,
 
-        @UpdateTimestamp
-        @Column(insertable = false, updatable = false, nullable = false)
-        var updated: Date? = null
+    @UpdateTimestamp
+    @Column(insertable = false, updatable = false, nullable = false)
+    var updated: Date? = null
 ) {
     @PrePersist
     open fun prePersist() {

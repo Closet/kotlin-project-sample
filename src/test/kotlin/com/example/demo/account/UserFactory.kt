@@ -6,23 +6,23 @@ import com.example.demo.commons.vo.MobileNumber
 class UserFactory {
     companion object {
         fun testCaseForCreateAccountRequest() =
-                Account.CreateAccountRequest(
-                        "테스트",
-                        "강남구",
-                        MobileNumber("010-0000-0000")
-                )
+            Account.CreateAccountRequest(
+                "테스트",
+                "강남구",
+                MobileNumber("010-0000-0000")
+            )
 
         fun testCaseForReadAccountRequest() =
-                Account.ReadAccountRequest(
-                        "테스트",
-                        MobileNumber("010-0000-0000")
-                )
+            Account.ReadAccountRequest(
+                "테스트",
+                MobileNumber("010-0000-0000")
+            )
 
         fun testCaseForChangeAccountRequest() =
-                Account.UpdateAccountRequest(
-                        "uuid",
-                        "강남구",
-                        MobileNumber("010-0000-0000")
-                )
+            Account.UpdateAccountRequest(
+                "uuid",
+                "강남구",
+                MobileNumber("010-0000-0000")
+            )
     }
 }

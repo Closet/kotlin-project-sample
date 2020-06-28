@@ -16,22 +16,24 @@ class MobileNumberUnitTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = [
-        "010231231",
-        "01023123",
-        "01023123",
-        "010231234",
-        "010231234010231234",
-        "01035",
-        "0231236",
-        "0231243811",
-        "023124381",
-        "0324287919"
-    ])
+    @ValueSource(
+        strings = [
+            "010231231",
+            "01023123",
+            "01023123",
+            "010231234",
+            "010231234010231234",
+            "01035",
+            "0231236",
+            "0231243811",
+            "023124381",
+            "0324287919"
+        ]
+    )
     fun `비정상적인 폰 번호 입력`(mobileNumberString: String) {
         Assertions.assertThatThrownBy {
             MobileNumber(mobileNumberString)
         }.`as`("${mobileNumberString}번호 테스트").isInstanceOf(MobileNumber.NumberIsNotInvalidException::class.java)
-                .hasMessage("invalid mobile phone number")
+            .hasMessage("invalid mobile phone number")
     }
 }
